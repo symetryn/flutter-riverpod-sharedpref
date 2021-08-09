@@ -1,19 +1,84 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_skeleton/models/anime_chan_model.dart';
+import 'package:flutter_skeleton/services/animechan_service.dart';
 
-class IndexScreen extends StatelessWidget {
+class IndexScreen extends StatefulWidget {
   const IndexScreen({Key? key}) : super(key: key);
 
   @override
+  _IndexScreenState createState() => _IndexScreenState();
+}
+
+class _IndexScreenState extends State<IndexScreen> {
+  Future<AnimeChan> _chan = AnimeChanService.random();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(tr("Skeleton")),
       ),
       body: Center(
-        child: Text(
-          tr("Hello world"),
-          style: Theme.of(context).textTheme.headline5,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              tr("Hello world"),
+              style: textTheme.headline5,
+            ),
+            SizedBox(height: 10),
+            FutureBuilder(
+              future: _chan,
+              builder: (context, AsyncSnapshot<AnimeChan?> snapshot) {
+                if (snapshot.hasData &&
+                    snapshot.connectionState == ConnectionState.done) {
+                  return Column(
+                    children: [
+                      Text(
+                        snapshot.data?.anime ?? "",
+                        textAlign: TextAlign.center,
+                        style: textTheme.headline3!
+                            .copyWith(color: Colors.redAccent),
+                      ),
+                      SizedBox(height: 20),
+                      Text(
+                        snapshot.data?.character ?? "",
+                        style: textTheme.headline6,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: Text(
+                          snapshot.data?.quote ?? "",
+                          textAlign: TextAlign.center,
+                          style: textTheme.bodyText2!.copyWith(height: 2),
+                        ),
+                      ),
+                    ],
+                  );
+                }
+                return Padding(
+                  padding: const EdgeInsets.all(50),
+                  child: CircularProgressIndicator(),
+                );
+              },
+            ),
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  _chan = AnimeChanService.random();
+                });
+              },
+              child: Text("Reload"),
+            )
+          ],
         ),
       ),
     );
