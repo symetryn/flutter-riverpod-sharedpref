@@ -11,3 +11,4 @@ Skeleton Project for Flutter
 ## Added Features:
 - Translation using [easy_localization](https://github.com/aissat/easy_localization)
 - Folder Structure inside `lib`
+- Global dio API settings and a sample api call in index page.
