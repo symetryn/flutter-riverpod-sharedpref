@@ -12,3 +12,7 @@ Skeleton Project for Flutter
 - Translation using [easy_localization](https://github.com/aissat/easy_localization)
 - Folder Structure inside `lib`
 - Global dio API settings and a sample api call in index page.
+
+
+## Todo
+- Caching http requests. [dio_http_cache](https://github.com/hurshi/dio-http-cache)
