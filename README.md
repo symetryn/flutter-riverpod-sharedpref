@@ -9,3 +9,4 @@ Skeleton Project for Flutter
 
 ## Added Features:
 - Translation using [easy_localization](https://github.com/aissat/easy_localization)
+- Folder Structure inside `lib`
