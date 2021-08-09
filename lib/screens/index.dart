@@ -19,14 +19,14 @@ class _IndexScreenState extends State<IndexScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(tr("Skeleton")),
+        title: Text("Skeleton".tr()),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              tr("Hello world"),
+              "Hello world".tr(),
               style: textTheme.headline5,
             ),
             SizedBox(height: 10),
@@ -35,28 +35,28 @@ class _IndexScreenState extends State<IndexScreen> {
               builder: (context, AsyncSnapshot<AnimeChan?> snapshot) {
                 if (snapshot.hasData &&
                     snapshot.connectionState == ConnectionState.done) {
-                  return Column(
-                    children: [
-                      Text(
-                        snapshot.data?.anime ?? "",
-                        textAlign: TextAlign.center,
-                        style: textTheme.headline3!
-                            .copyWith(color: Colors.redAccent),
-                      ),
-                      SizedBox(height: 20),
-                      Text(
-                        snapshot.data?.character ?? "",
-                        style: textTheme.headline6,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(20),
-                        child: Text(
+                  return Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      children: [
+                        Text(
+                          snapshot.data?.anime ?? "",
+                          textAlign: TextAlign.center,
+                          style: textTheme.headline3!
+                              .copyWith(color: Colors.redAccent),
+                        ),
+                        SizedBox(height: 20),
+                        Text(
+                          snapshot.data?.character ?? "",
+                          style: textTheme.headline6,
+                        ),
+                        Text(
                           snapshot.data?.quote ?? "",
                           textAlign: TextAlign.center,
                           style: textTheme.bodyText2!.copyWith(height: 2),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   );
                 }
                 return Padding(
