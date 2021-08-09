@@ -14,11 +14,6 @@ class _IndexScreenState extends State<IndexScreen> {
   Future<AnimeChan> _chan = AnimeChanService.random();
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
