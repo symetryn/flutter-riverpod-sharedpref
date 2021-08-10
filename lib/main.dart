@@ -1,19 +1,32 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_skeleton/screens/auth/login.dart';
+import 'package:flutter_skeleton/screens/auth/register.dart';
 import 'package:flutter_skeleton/screens/index.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(
     EasyLocalization(
       supportedLocales: [Locale('ja')],
       path: 'assets/translations',
       startLocale: Locale('ja'),
-      child: MyApp(),
+      child: ProviderScope(
+        child: MyApp(),
+      ),
     ),
   );
 }
+
+final pageRoutes = <String, WidgetBuilder>{
+  "/": (_) => IndexScreen(),
+  "/login": (_) => LoginScreen(),
+  "/register": (_) => RegisterScreen(),
+};
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -27,7 +40,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const IndexScreen(),
+      routes: pageRoutes,
+      initialRoute: "/login",
     );
   }
 }
