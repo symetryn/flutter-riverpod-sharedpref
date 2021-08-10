@@ -30,6 +30,10 @@ dependencies:
   cupertino_icons: ^1.0.2
   easy_localization: ^3.0.0
   dio: ^4.0.0
+  flutter_hooks: ^0.18.0
+  hooks_riverpod: ^1.0.0-dev.6
+  firebase_core: ^1.4.0
+  firebase_auth: ^3.0.1
 
 dev_dependencies:
   flutter_test:
