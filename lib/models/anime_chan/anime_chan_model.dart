@@ -1,19 +1,16 @@
-class AnimeChan {
-  final String anime;
-  final String character;
-  final String quote;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  AnimeChan({
-    required this.anime,
-    required this.character,
-    required this.quote,
-  });
+part "anime_chan_model.freezed.dart";
+part "anime_chan_model.g.dart";
 
-  factory AnimeChan.fromMap(dynamic response) {
-    return AnimeChan(
-      anime: response["anime"],
-      character: response["character"],
-      quote: response["quote"],
-    );
-  }
+@freezed
+class AnimeChan with _$AnimeChan {
+  factory AnimeChan({
+    required String anime,
+    required String character,
+    required String quote,
+  }) = _AnimeChan;
+
+  factory AnimeChan.fromJson(Map<String, dynamic> json) =>
+      _$AnimeChanFromJson(json);
 }

@@ -5,8 +5,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 final animeChanServiceProvider = Provider((ref) => AnimeChanService());
 
 class AnimeChanService {
-  static Future<AnimeChan> random() async {
+  Future<AnimeChan> random() async {
     final response = await httpClient.get("/random");
-    return AnimeChan.fromMap(response.data);
+    return AnimeChan.fromJson(response.data);
   }
 }
