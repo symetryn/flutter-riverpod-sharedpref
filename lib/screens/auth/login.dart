@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_skeleton/controllers/auth_controller.dart';
-import 'package:flutter_skeleton/services/auth_service.dart';
+import 'package:flutter_skeleton/controllers/auth/auth_controller.dart';
 import 'package:flutter_skeleton/widgets/index.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -34,27 +33,16 @@ class LoginScreen extends HookConsumerWidget {
     final _emailController = useTextEditingController();
     final _passwordController = useTextEditingController();
 
-    ref.watch(authServiceProvider).authStateChanges.listen((user) {
-      if (user != null) {
-        Navigator.pushReplacementNamed(context, "home");
-      }
-    });
-
-    return StreamBuilder(
-        stream: ref.watch(authServiceProvider).authStateChanges,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Scaffold(
-              body: Center(
-                child: CircularProgressIndicator(),
-              ),
-            );
-          }
-
-          return Scaffold(
-            body: Padding(
-              padding: const EdgeInsets.all(20),
-              child: Form(
+    return Scaffold(
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: ref.watch(authControllerProvider).maybeWhen(
+            loading: () {
+              return CircularProgressIndicator();
+            },
+            orElse: () {
+              return Form(
                 key: _formKey,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -101,7 +89,6 @@ class LoginScreen extends HookConsumerWidget {
                                     email: _emailController.text,
                                     password: _passwordController.text,
                                   );
-                              Navigator.pushReplacementNamed(context, "home");
                             }
                           },
                           buttonText: "Login",
@@ -110,9 +97,11 @@ class LoginScreen extends HookConsumerWidget {
                     ),
                   ],
                 ),
-              ),
-            ),
-          );
-        });
+              );
+            },
+          ),
+        ),
+      ),
+    );
   }
 }
