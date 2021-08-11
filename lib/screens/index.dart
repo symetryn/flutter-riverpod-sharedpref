@@ -1,7 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_skeleton/controllers/auth_controller.dart';
 import 'package:flutter_skeleton/models/anime_chan_model.dart';
 import 'package:flutter_skeleton/services/animechan_service.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class IndexScreen extends StatefulWidget {
   const IndexScreen({Key? key}) : super(key: key);
@@ -20,6 +22,19 @@ class _IndexScreenState extends State<IndexScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Skeleton".tr()),
+        actions: [
+          Consumer(
+            builder: (context, ref, _) {
+              return IconButton(
+                icon: Icon(Icons.logout),
+                onPressed: () async {
+                  await ref.read(authControllerProvider.notifier).signOut();
+                  Navigator.pushReplacementNamed(context, "login");
+                },
+              );
+            },
+          ),
+        ],
       ),
       body: Center(
         child: Column(

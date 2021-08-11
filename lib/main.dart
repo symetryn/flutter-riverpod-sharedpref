@@ -23,9 +23,9 @@ void main() async {
 }
 
 final pageRoutes = <String, WidgetBuilder>{
-  "/": (_) => IndexScreen(),
-  "/login": (_) => LoginScreen(),
-  "/register": (_) => RegisterScreen(),
+  "home": (_) => IndexScreen(),
+  "login": (_) => LoginScreen(),
+  "register": (_) => RegisterScreen(),
 };
 
 class MyApp extends StatelessWidget {
@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       routes: pageRoutes,
-      initialRoute: "/login",
+      initialRoute: "login",
     );
   }
 }
