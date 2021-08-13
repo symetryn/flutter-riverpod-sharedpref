@@ -37,8 +37,6 @@ class AuthRouterDelegate extends RouterDelegate
         builder: (context, AsyncSnapshot<User?> stream) {
           if (stream.connectionState == ConnectionState.active) {
             final loggedIn = stream.hasData;
-            print("loggedIn: ");
-            print(loggedIn.toString());
             return Navigator(
               key: key,
               pages: [
