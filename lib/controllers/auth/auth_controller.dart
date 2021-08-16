@@ -24,6 +24,8 @@ class AuthController extends StateNotifier<AuthState> {
     );
   }
 
+  Stream<User?> get userStream => _read(authServiceProvider).authStateChanges;
+
   @override
   void dispose() {
     _authStateChangeSubscription?.cancel();
