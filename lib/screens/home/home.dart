@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_skeleton/screens/home/anime.dart';
+import 'package:flutter_skeleton/screens/home/favourite.dart';
 import 'package:flutter_skeleton/utils/navigator_keys.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -11,6 +12,8 @@ class HomeScreen extends ConsumerWidget {
         switch (settings.name) {
           case "/":
             return AnimeScreen();
+          case "/favourites":
+            return FavouriteScreen();
         }
         return Container();
       },
